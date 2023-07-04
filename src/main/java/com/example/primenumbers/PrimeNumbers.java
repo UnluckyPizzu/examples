@@ -62,6 +62,8 @@ public class PrimeNumbers {
                 scanner.next();
             }
         }
+        
+        scanner.close();
 		
         
         System.out.println("I numeri primi tra " + firstNumber + " e " + secondNumber + " sono:");
