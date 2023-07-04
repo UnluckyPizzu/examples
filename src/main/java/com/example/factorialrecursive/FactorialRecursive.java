@@ -13,7 +13,7 @@ public class FactorialRecursive {
 		Scanner scanner = new Scanner(System.in);
 		
 		while (!isInputInt) {
-            System.out.print("Inserisci il primo numero intero: ");
+            System.out.print("Inserisci un numero intero: ");
 
             if (scanner.hasNextInt()) {
             	number = scanner.nextInt();
