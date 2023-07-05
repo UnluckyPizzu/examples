@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class Record {
+	private LocalDate refDate;
 	private LocalDate startDate;
 	private LocalDate maturity;
 	private double zeroCpn;
@@ -17,9 +18,10 @@ public class Record {
 	public Record() {
 	}
 
-	public Record(LocalDate startDate, LocalDate maturity, double zeroCpn, String currency, double zeroCpnEUR, double dv01Par,
+	public Record(LocalDate refDate, LocalDate startDate, LocalDate maturity, double zeroCpn, String currency, double zeroCpnEUR, double dv01Par,
 			String discountSrc) {
 		super();
+		this.refDate = refDate;
 		this.startDate = startDate;
 		this.maturity = maturity;
 		this.zeroCpn = zeroCpn;
@@ -27,6 +29,14 @@ public class Record {
 		this.zeroCpnEUR = zeroCpnEUR;
 		this.dv01Par = dv01Par;
 		this.discountSrc = discountSrc;
+	}
+	
+	public LocalDate getRefDate() {
+		return refDate;
+	}
+
+	public void setRefDate(LocalDate refDate) {
+		this.refDate = refDate;
 	}
 
 	public LocalDate getStartDate() {
@@ -87,7 +97,7 @@ public class Record {
 
 	@Override
 	public String toString() {
-		return "Record [startDate=" + startDate + ", maturity=" + maturity + ", zeroCpn=" + zeroCpn + ", currency="
+		return "Record [refDate=" + refDate + ", startDate=" + startDate + ", maturity=" + maturity + ", zeroCpn=" + zeroCpn + ", currency="
 				+ currency + ", zeroCpnEUR=" + zeroCpnEUR + ", dv01Par=" + dv01Par + ", discountSrc=" + discountSrc
 				+ "]";
 	}

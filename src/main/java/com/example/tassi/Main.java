@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,11 +26,30 @@ public class Main {
         boolean first = true;
         
         Supplier<Map<String, Double>> mapExchangeRates = Main::getExchangeRates;
+        
+        Consumer<Record> applyDiscount = record -> {
+        	switch(record.getDiscountSrc()) {
+        		case "payoff":
+        			record.setDv01Par(record.getDv01Par() * 0.1);
+        			break;
+        		case "spot conversion past cash":
+        			record.setDv01Par(record.getDv01Par() * 2.0);
+        			break;
+        		case "spot conversion mv":
+        			record.setDv01Par(record.getDv01Par() / (record.getRefDate().until(record.getMaturity(), ChronoUnit.DAYS)));
+        			break;
+        			
+        	}
+        };
+        
         Consumer<Record> applyTax = record -> {
         	Map<String, Double> mapTax = mapExchangeRates.get();
         	Double exchange = mapTax.getOrDefault(record.getCurrency(), 1.0);
         	record.setDv01Par(record.getDv01Par() * exchange);
+        	applyDiscount.accept(record);
         };
+        
+       
         
 
         try (BufferedReader br = new BufferedReader(streamReader)) {
@@ -39,7 +59,7 @@ public class Main {
                 if (first == true) {
                 	first = false;
                 } else {
-                    Record record = new Record(LocalDate.parse(values[8],formatter),LocalDate.parse(values[9],formatter),Double.parseDouble(values[10]),values[11],Double.parseDouble(values[12]),Double.parseDouble(values[14]),values[15]);
+                    Record record = new Record(LocalDate.parse(values[0],formatter),LocalDate.parse(values[8],formatter),LocalDate.parse(values[9],formatter),Double.parseDouble(values[10]),values[11],Double.parseDouble(values[12]),Double.parseDouble(values[14]),values[15]);
                     
                     records.add(record);
                 }
@@ -53,6 +73,7 @@ public class Main {
 				System.out.println(i + " " + record.toString());
 				i++;
 			}
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
