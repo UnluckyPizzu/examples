@@ -1,0 +1,30 @@
+YV28GX|ALFA_ROMEO|Mario Rossi
+LK56YE|TOYOTA|Maurizio De Santis
+OK27CP|BMW|Filippo Sorrentino
+NY52DC|FERRARI|Marco Palumbo
+DX03PA|FERRARI|Lorenzo Serra
+XA96OT|FERRARI|Vincenzo De Luca
+IG88PJ|FIAT|Luca Bianchi
+LJ71FM|TOYOTA|Francesco Ricci
+BA23QM|ALFA_ROMEO|Paolo Neri
+VR46ET|TOYOTA|Stefano Fiore
+IO56YP|FIAT|Lorenzo Serra
+AK20VN|BMW|Enrico Lombardo
+JA53QG|BMW|Emilio Caruso
+XA00RM|ALFA_ROMEO|Giovanni Verdi
+MJ07WJ|BMW|Alberto Conti
+LI11NR|TOYOTA|Francesco Ricci
+XC33HM|FERRARI|Nicola Gallo
+OJ35BR|ALFA_ROMEO|Claudio Giuliani
+SC88GQ|FORD|Francesco Ricci
+AG69HM|ALFA_ROMEO|Federico Bruno
+DX92OC|FERRARI|Giuseppe Russo
+GX44NN|FERRARI|Andrea D'Amico
+GR12BF|FIAT|Simone Marino
+RM54QS|FIAT|Alessandro Rizzo
+NR52XO|FORD|Francesco Ricci
+QG04AF|ALFA_ROMEO|Federico Bruno
+QD72OA|BMW|Federico Bruno
+AK39RU|FORD|Mario Rossi
+VO00DM|FORD|Pietro Moretti
+VM36PZ|FERRARI|Maurizio De Santis
