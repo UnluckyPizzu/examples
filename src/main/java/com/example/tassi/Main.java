@@ -16,12 +16,18 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class Main {
+	
+	public final static String PAYOFF = "payoff";
+	public final static String PAST_CASH = "spot conversion past cash";
+	public final static String MV = "spot conversion mv";
+	public final static String FILE_NAME = "SSL_drm_xp_sens_tassi_MCCY.csv";
+	
 
 	public static void main(String[] args) {
 		List<Record> records = new LinkedList<Record>();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream is = classloader.getResourceAsStream("SSL_drm_xp_sens_tassi_MCCY.csv");
+        InputStream is = classloader.getResourceAsStream(FILE_NAME);
         InputStreamReader streamReader = new InputStreamReader(is, StandardCharsets.UTF_8);
         boolean first = true;
         
@@ -29,13 +35,13 @@ public class Main {
         
         Consumer<Record> applyDiscount = record -> {
         	switch(record.getDiscountSrc()) {
-        		case "payoff":
+        		case PAYOFF:
         			record.setDv01Par(record.getDv01Par() * 0.1);
         			break;
-        		case "spot conversion past cash":
+        		case PAST_CASH:
         			record.setDv01Par(record.getDv01Par() * 2.0);
         			break;
-        		case "spot conversion mv":
+        		case MV:
         			record.setDv01Par(record.getDv01Par() / (record.getRefDate().until(record.getMaturity(), ChronoUnit.DAYS)));
         			break;
         			
@@ -83,8 +89,8 @@ public class Main {
 	private static Map<String, Double> getExchangeRates() {
         Map<String, Double> exchangeRates = new HashMap<>();
         exchangeRates.put("EUR", 1.0);
-        exchangeRates.put("CNY", 7.5);
-        exchangeRates.put("USD", 1.2);
+        exchangeRates.put("CNY", 7.87);
+        exchangeRates.put("USD", 1.09);
         exchangeRates.put("CZK", 26.0);
         exchangeRates.put("GBP", 0.85);
         exchangeRates.put("AUD", 1.6);
