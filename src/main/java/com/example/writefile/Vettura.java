@@ -34,6 +34,42 @@ public class Vettura {
 	public void setMarca(Marca marca) {
 		this.marca = marca;
 	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((marca == null) ? 0 : marca.hashCode());
+		result = prime * result + ((nominativo == null) ? 0 : nominativo.hashCode());
+		result = prime * result + ((targa == null) ? 0 : targa.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Vettura other = (Vettura) obj;
+		if (marca != other.marca)
+			return false;
+		if (nominativo == null) {
+			if (other.nominativo != null)
+				return false;
+		} else if (!nominativo.equals(other.nominativo))
+			return false;
+		if (targa == null) {
+			if (other.targa != null)
+				return false;
+		} else if (!targa.equals(other.targa))
+			return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {
