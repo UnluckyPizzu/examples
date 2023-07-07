@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class Main {
 	
@@ -65,7 +66,7 @@ public class Main {
                 if (first == true) {
                 	first = false;
                 } else {
-                    Record record = new Record(LocalDate.parse(values[0],formatter),LocalDate.parse(values[8],formatter),LocalDate.parse(values[9],formatter),Double.parseDouble(values[10]),values[11],Double.parseDouble(values[12]),Double.parseDouble(values[14]),values[15]);
+                    Record record = new Record(LocalDate.parse(values[0],formatter),LocalDate.parse(values[8],formatter),LocalDate.parse(values[9],formatter),Double.parseDouble(values[10]),values[11],Double.parseDouble(values[12]),Double.parseDouble(values[14]),values[15], values[5]);
                     
                     records.add(record);
                 }
@@ -74,12 +75,26 @@ public class Main {
             
             records.forEach(applyTax);
             
+            Map<String, Double> mapPortfolio = records.stream().collect(Collectors.groupingBy(Record::getPortfolio, Collectors.summingDouble(Record::getDv01Par)));
+            
             int i = 0;
             for (Record record : records) {          	
 				System.out.println(i + " " + record.toString());
 				i++;
 			}
             
+            System.out.println("\n\n\n\n\n\n");
+            
+            for (Map.Entry<String, Double> entry : mapPortfolio.entrySet()) {
+            	System.out.println(entry.getKey() + " " + entry.getValue());
+            	
+            	/*
+            List<String> mapNamePortfolio = records.stream().map(Record::getPortfolio).sorted().distinct().collect(Collectors.toList());
+				for (String mapEntry : mapNamePortfolio) {
+					System.out.println(mapEntry);
+				}
+			*/
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

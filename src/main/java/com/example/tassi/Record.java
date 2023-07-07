@@ -9,17 +9,16 @@ public class Record {
 	private LocalDate maturity;
 	private double zeroCpn;
     private String currency;
+    private String portfolio;
     private double zeroCpnEUR;
     private double dv01Par;
     private String discountSrc;
-    
-    
     
 	public Record() {
 	}
 
 	public Record(LocalDate refDate, LocalDate startDate, LocalDate maturity, double zeroCpn, String currency, double zeroCpnEUR, double dv01Par,
-			String discountSrc) {
+			String discountSrc, String portfolio) {
 		super();
 		this.refDate = refDate;
 		this.startDate = startDate;
@@ -27,6 +26,7 @@ public class Record {
 		this.zeroCpn = zeroCpn;
 		this.currency = currency;
 		this.zeroCpnEUR = zeroCpnEUR;
+		this.portfolio = portfolio;
 		this.dv01Par = dv01Par;
 		this.discountSrc = discountSrc;
 	}
@@ -37,6 +37,14 @@ public class Record {
 
 	public void setRefDate(LocalDate refDate) {
 		this.refDate = refDate;
+	}
+
+	public String getPortfolio() {
+		return portfolio;
+	}
+
+	public void setPortfolio(String portfolio) {
+		this.portfolio = portfolio;
 	}
 
 	public LocalDate getStartDate() {
