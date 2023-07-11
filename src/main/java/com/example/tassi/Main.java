@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
 
 public class Main {
 	
-	public final static String PAYOFF = "payoff";
-	public final static String PAST_CASH = "spot conversion past cash";
-	public final static String MV = "spot conversion mv";
+//	public final static String PAYOFF = "payoff";
+//	public final static String PAST_CASH = "spot conversion past cash";
+//	public final static String MV = "spot conversion mv";
 	public final static String FILE_NAME = "SSL_drm_xp_sens_tassi_MCCY.csv";
 	
 
@@ -35,15 +35,17 @@ public class Main {
         Supplier<Map<String, Double>> mapExchangeRates = Main::getExchangeRates;
         
         Consumer<Record> applyDiscount = record -> {
-        	switch(record.getDiscountSrc()) {
+        	
+        	Discount discount = Discount.fromString(record.getDiscountSrc());
+        	switch(discount) {
         		case PAYOFF:
-        			record.setDv01Par(record.getDv01Par() * 0.1);
+        			Discount.PAYOFF.applyDiscount(record);
         			break;
         		case PAST_CASH:
-        			record.setDv01Par(record.getDv01Par() * 2.0);
+        			Discount.PAST_CASH.applyDiscount(record);
         			break;
         		case MV:
-        			record.setDv01Par(record.getDv01Par() / (record.getRefDate().until(record.getMaturity(), ChronoUnit.DAYS)));
+        			Discount.MV.applyDiscount(record);
         			break;
         			
         	}
@@ -82,6 +84,11 @@ public class Main {
 				System.out.println(i + " " + record.toString());
 				i++;
 			}
+            
+            
+            Double sumDv = records.stream().reduce(0.0,(somma,record) -> somma = somma + record.getDv01Par(), (accumulatedDouble,accumulatedDouble2) -> accumulatedDouble + accumulatedDouble2);
+            
+            System.out.println(sumDv.toString());
             
             System.out.println("\n\n\n\n\n\n");
             
